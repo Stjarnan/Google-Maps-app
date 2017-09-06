@@ -7,6 +7,7 @@ Base
 html,
 body {
     height: 100%;
+    position: relative;
 }
 
 /* =================
@@ -20,6 +21,18 @@ header {
     background-color: #312F2F;
 }
 
+nav {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+nav svg {
+    height: 100%;
+    cursor: pointer;
+}
+
 /* =================
 
 Content Area
@@ -28,4 +41,15 @@ Content Area
 
 #map {
     height: 95%;
+}
+
+.list {
+    width: 25%;
+    height: 95%;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    z-index: 99;
+    background-color: #312F2F;
+    display: none;
 }

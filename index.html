@@ -9,8 +9,22 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header></header>
+    <header>
+        <nav>
+            <svg id="menu" fill="#fff" height="34" viewBox="0 0 24 24" width="34" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+        </nav>
+    </header>
+    <div class="list">
+        <ul data-bind="foreach: markers">
+            <li data-bind="text: name"></li>
+        </ul>
+    </div>
     <div id="map"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaE1aS_pX-2vvkwdZ0S6NMB8m9lRM-74&callback=initMap"
     async defer></script>
     <script src="js/app.js"></script>
