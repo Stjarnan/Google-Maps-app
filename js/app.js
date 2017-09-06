@@ -1,11 +1,3 @@
-// Google Map
-
-// EYE https://api.foursquare.com/v2/venues/4f9a4921e4b08ea037d76fb5?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904
-//Cafe https://api.foursquare.com/v2/venues/4a26ff58f964a5202a7f1fe3?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904
-// Rijks https://api.foursquare.com/v2/venues/4a270706f964a520bd8c1fe3?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904
-// Royal https://api.foursquare.com/v2/venues/4a270706f964a520bc8c1fe3?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904
-// Wester https://api.foursquare.com/v2/venues/4a27071ef964a520ff8c1fe3?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904
-
 var map;
 var markers = [
     { name: 'Van Gogh Museum',  lat: 52.358415900, lng: 4.881075600, website: 'test' },
