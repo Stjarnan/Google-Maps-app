@@ -52,4 +52,27 @@ Content Area
     z-index: 99;
     background-color: #312F2F;
     display: none;
+    color: #fff;
+}
+
+.list ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list ul li {
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+.list ul li h3 {
+    text-align: center;
+}
+
+.itemData {
+    display: none;
+}
+
+.category {
+    display: none;
 }

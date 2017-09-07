@@ -11,15 +11,23 @@
 <body>
     <header>
         <nav>
-            <svg id="menu" fill="#fff" height="34" viewBox="0 0 24 24" width="34" xmlns="http://www.w3.org/2000/svg">
+            <svg id="menu" data-bind="click: toggleMenu" fill="#fff" height="34" viewBox="0 0 24 24" width="34" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
             </svg>
         </nav>
     </header>
     <div class="list">
-        <ul data-bind="foreach: markers">
-            <li data-bind="text: name"></li>
+        <ul data-bind="foreach: data">
+            <li data-bind="click: $parent.chosenItem">
+                <h3 data-bind="text: name"></h3>
+                <div class="itemData">
+                    <p>Adress: <strong data-bind="text: adress"></strong></p>
+                    <p class="category" data-bind="text: category"></p>
+                    <p class="markerId" data-bind="text: markerId"></p>
+                    <a data-bind="text: website, attr: { href: website }" target="_blank">Visit website!</a>
+                </div>
+            </li>
         </ul>
     </div>
     <div id="map"></div>
