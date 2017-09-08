@@ -32,7 +32,7 @@
                     <p>Adress: <strong data-bind="text: adress"></strong></p>
                     <p class="category" data-bind="text: category"></p>
                     <p class="markerId" data-bind="text: markerId"></p>
-                    <a data-bind="text: website, attr: { href: website }" target="_blank">Visit website!</a>
+                    <a data-bind="click: function(){ return true }, clickBubble: false, text: website, attr: { href: website }" target="_blank"></a>
                 </div>
             </li>
         </ul>
