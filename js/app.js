@@ -1,3 +1,4 @@
+/*jshint loopfunc:true */
 var map;
 //markers for first initiation of google map
 var markers = [
@@ -24,8 +25,8 @@ function foursquareAPI(url, index) {
         push(index);
     }).fail( function(){
         return alert("Something went wrong with the request, It's not you, it's us! Please try again later.");
-    })
-    };
+    });
+    }
 
 foursquareAPI("https://api.foursquare.com/v2/venues/4a2706faf964a5208c8c1fe3?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904", 0);
 foursquareAPI("https://api.foursquare.com/v2/venues/4a26ff58f964a5202a7f1fe3?oauth_token=BAK4ZVQY1W3LR244SHG4YROS0B22KPTKC2OTRGEZTEG2GBXA&v=20170904", 1);
@@ -48,7 +49,7 @@ function AppViewModel() {
       }
 
     self.availableCategories = ko.observableArray(['Museum', 'Food', 'Sights', 'Outdoors']);
-    self.selectedCategory = ko.observable()
+    self.selectedCategory = ko.observable();
     self.data = ko.observableArray();
 
     // push first data to observableArray AFTER google map has been initiated
@@ -58,7 +59,7 @@ function AppViewModel() {
         self.data.push(new location( 'Rijksmuseum', 'Museum', 52.360034188361645, 4.885139465332031, 'Museumstraat 1, 1071 XX Amsterdam', foursquareData[2], 2 ));
         self.data.push(new location( 'Royal Palace Amsterdam', 'Sights', 52.373189, 4.891319, 'Dam, 1012 HG Amsterdam', foursquareData[3], 3 ));
         self.data.push(new location( 'Westerpark', 'Outdoors', 52.386182, 4.877758, 'Haarlemmerweg 4, 1014 Amsterdam', foursquareData[4], 4));
-    }, 2000)
+    }, 2000);
 
     // eventlistener - sorts visible data based on filter
     self.selectedCategory.subscribe(function(value) {
@@ -69,7 +70,7 @@ function AppViewModel() {
             var markerId = $(item).children('.itemData').children('.markerId').html();
             markerNum[markerId].setVisible(true);
 
-            if(value == undefined){
+            if(value === undefined){
                 $(item).show();
                 markerNum[markerId].setVisible(true);
             }
@@ -77,12 +78,12 @@ function AppViewModel() {
                 $(item).hide();
                 markerNum[markerId].setVisible(false);
             }
-        })
+        });
     });
 
     self.toggleMenu = function() {
             $( ".list" ).slideToggle( "slow" );
-    }
+    };
 
     // This function is used to animate the chosen item to make it obvious for the users which one it is
     self.chosenItem = function(item, event){
@@ -94,7 +95,7 @@ function AppViewModel() {
         var id = $(event.currentTarget).children('.itemData').children('.markerId').text();
         markerNum[id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
 
-    }
+    };
 
 } // End of AppViewModel
 
@@ -122,7 +123,7 @@ function initMap() {
 
             return function() {
             infowindow.open(map, marker);
-            }
+            };
         })(markerNum[i], i));
 
         google.maps.event.addListener(markerNum[i], 'click', (function(marker, i) {
@@ -131,8 +132,8 @@ function initMap() {
                 for (var j = 0; j < markerNum.length; j++) {
                     markerNum[j].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
                   }
-                markerNum[i].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-            }
+                markerNum[i].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            };
 
         })(markerNum[i], i));
     }
