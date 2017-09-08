@@ -1,5 +1,5 @@
 var map;
-//markers for initmap
+//markers for first initiation of google map
 var markers = [
     { name: 'Van Gogh Museum',  lat: 52.358415900, lng: 4.881075600, adress: 'Museumplein 6, 1071 DJ Amsterdam'},
     { name: 'Cafe De Jaren', lat: 52.368079, lng: 4.895396, adress: 'Nieuwe Doelenstraat 20, 1012 CP Amsterdam'},
@@ -7,12 +7,12 @@ var markers = [
     { name: 'Royal Palace Amsterdam', lat: 52.373189, lng: 4.891319, adress: 'Dam, 1012 HG Amsterdam'},
     { name: 'Westerpark', lat: 52.386182, lng: 4.877758, adress: 'Haarlemmerweg 4, 1014 Amsterdam'}
   ];
+// Collection of all markers
 var markerNum = [];
-var initUrls = false;
 var res;
 var foursquareData = ['0', '1', '2', '3', '4'];
-function toggleBounce() {}
 
+// This function exist to add foursquare data AFTER async api call finished from foursquareAPI function
 function push(index){
     foursquareData[index] = res;
 }
@@ -23,7 +23,7 @@ function foursquareAPI(url, index) {
         res = result.response.venue.url;
         push(index);
     }).fail( function(){
-        return "Couldn't load data, try again later.";
+        return alert("Something went wrong with the request, It's not you, it's us! Please try again later.");
     })
     };
 
@@ -47,8 +47,11 @@ function AppViewModel() {
         this.markerId = ko.observable(markerId);
       }
 
+    self.availableCategories = ko.observableArray(['Museum', 'Food', 'Sights', 'Outdoors']);
+    self.selectedCategory = ko.observable()
     self.data = ko.observableArray();
 
+    // push first data to observableArray AFTER google map has been initiated
     setTimeout(function(){
         self.data.push(new location( 'Van Gogh Museum', 'Museum', 52.358415900, 4.881075600, 'Museumplein 6, 1071 DJ Amsterdam', foursquareData[0], 0 ));
         self.data.push(new location( 'Cafe De Jaren', 'Food', 52.368079, 4.895396, 'Nieuwe Doelenstraat 20, 1012 CP Amsterdam', foursquareData[1], 1 ));
@@ -57,10 +60,31 @@ function AppViewModel() {
         self.data.push(new location( 'Westerpark', 'Outdoors', 52.386182, 4.877758, 'Haarlemmerweg 4, 1014 Amsterdam', foursquareData[4], 4));
     }, 2000)
 
+    // eventlistener - sorts visible data based on filter
+    self.selectedCategory.subscribe(function(value) {
+        var list = $('.list ul li');
+        list.each(function(index, item){
+            $(item).show();
+            var category = $(item).children('.itemData').children('.category').html();
+            var markerId = $(item).children('.itemData').children('.markerId').html();
+            markerNum[markerId].setVisible(true);
+
+            if(value == undefined){
+                $(item).show();
+                markerNum[markerId].setVisible(true);
+            }
+            else if(category != value){
+                $(item).hide();
+                markerNum[markerId].setVisible(false);
+            }
+        })
+    });
+
     self.toggleMenu = function() {
             $( ".list" ).slideToggle( "slow" );
     }
 
+    // This function is used to animate the chosen item to make it obvious for the users which one it is
     self.chosenItem = function(item, event){
         $('.itemData').hide();
         markerNum.forEach(function(element) {
@@ -74,6 +98,7 @@ function AppViewModel() {
 
 } // End of AppViewModel
 
+// Init google map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.370216, lng: 4.895168},

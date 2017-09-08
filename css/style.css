@@ -44,7 +44,7 @@ Content Area
 }
 
 .list {
-    width: 25%;
+    width: 100%;
     height: 95%;
     position: absolute;
     top: 5%;
@@ -53,6 +53,23 @@ Content Area
     background-color: #312F2F;
     display: none;
     color: #fff;
+}
+
+.selectContainer {
+    margin-bottom: 40px;
+}
+
+.selectContainer p {
+    text-align: center;
+}
+
+.selectContainer div {
+    width: 150px;
+    margin: 0 auto;
+}
+
+.selectContainer select {
+    color: #312F2F;
 }
 
 .list ul {
@@ -73,6 +90,33 @@ Content Area
     display: none;
 }
 
-.category {
+.itemData p,
+.itemData a {
+    text-align: center;
+}
+
+.itemData a {
+    width: 100%;
+    display: inline-block;
+    color: #fff;
+}
+
+.itemData a:visited {
+    color: #fff;
+}
+
+.category,
+.markerId {
     display: none;
 }
+
+.attribution {
+    text-align: center;
+    margin-top: 150px;
+}
+
+@media screen and (min-width: 1024px) { 
+    .list {
+        width: 300px;
+    }
+ }

@@ -18,6 +18,12 @@
         </nav>
     </header>
     <div class="list">
+        <div class="selectContainer">
+            <p>Sort venues by category:</p>
+            <div>
+                <select data-bind="options: availableCategories, optionsCaption: 'Select a category', value: selectedCategory"></select>
+            </div>
+        </div>
         <ul data-bind="foreach: data">
             <li data-bind="click: $parent.chosenItem">
                 <h3 data-bind="text: name"></h3>
@@ -29,8 +35,9 @@
                 </div>
             </li>
         </ul>
+        <p class="attribution">Data provided by: <strong>Google Maps</strong> & <strong>Foursquare</strong></p>
     </div>
-    <div id="map"></div>
+    <div id="map">The map has not loaded yet or could not be loaded at all - try again later</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuaE1aS_pX-2vvkwdZ0S6NMB8m9lRM-74&callback=initMap"
