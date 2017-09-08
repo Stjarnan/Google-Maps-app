@@ -139,5 +139,10 @@ function initMap() {
     }
 } // End of initMap
 
+// In case of error with the maps api
+function mapError(){
+    alert('Something went wrong with the loading of the map, please try again later.');
+}
+
 // Activates knockout.js
 ko.applyBindings(new AppViewModel());
