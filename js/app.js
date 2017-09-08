@@ -93,7 +93,7 @@ function AppViewModel() {
         });
         $(event.currentTarget).children('.itemData').show();
         var id = $(event.currentTarget).children('.itemData').children('.markerId').text();
-        markerNum[id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+        markerNum[id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
 
     };
 
