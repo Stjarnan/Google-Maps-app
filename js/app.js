@@ -21,8 +21,13 @@ function push(index){
 // Api call function for foursquare-data
 function foursquareAPI(url, index) {
     $.getJSON(url).done(function(result){
+        if(result.response.venue.url !== undefined){
         res = result.response.venue.url;
         push(index);
+        } else {
+            res = "No website available";
+            push(index);
+        }
     }).fail( function(){
         return alert("Something went wrong with the request, It's not you, it's us! Please try again later.");
     });
