@@ -28,7 +28,7 @@
         <ul data-bind="foreach: filter">
             <li data-bind="click: $parent.chosenItem">
                 <h3 data-bind="text: name"></h3>
-                <div class="itemData">
+                <div class="itemData" data-bind="visible: active()">
                     <p>Adress: <strong data-bind="text: adress"></strong></p>
                     <p class="category" data-bind="text: category"></p>
                     <p class="markerId" data-bind="text: markerId"></p>

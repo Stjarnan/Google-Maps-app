@@ -43,7 +43,7 @@ function AppViewModel() {
 
     var self = this;
 
-    function location(name, category, lat, lng, adress, website, markerId, marker) {
+    function location(name, category, lat, lng, adress, website, markerId, marker, active=false) {
         this.name = ko.observable(name);
         this.category = ko.observable(category);
         this.lat = ko.observable(lat);
@@ -52,6 +52,7 @@ function AppViewModel() {
         this.website = ko.observable(website);
         this.markerId = ko.observable(markerId);
         this.marker = ko.observable(marker);
+        this.active = ko.observable(active);
       }
 
     self.availableCategories = ko.observableArray(['Museum', 'Food', 'Sights', 'Outdoors']);
@@ -90,15 +91,14 @@ function AppViewModel() {
     };
 
     // This function is used to animate the chosen item to make it obvious for the users which one it is
-    self.chosenItem = function(item, event){
-        $('.itemData').hide();
-        markerNum.forEach(function(element) {
-            element.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-        });
-        $(event.currentTarget).children('.itemData').show();
-        var id = $(event.currentTarget).children('.itemData').children('.markerId').text();
-        markerNum[id].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    self.chosenItem = function(data){
+        for(var j = 0; j < self.data().length; j++) {
+            self.data()[j].active(false);
+            self.data()[j].marker().setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+        }
 
+        self.data()[data.markerId()].marker().setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+        self.data()[data.markerId()].active(true)
     };
 
 } // End of AppViewModel
