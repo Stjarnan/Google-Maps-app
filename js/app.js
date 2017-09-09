@@ -98,7 +98,7 @@ function AppViewModel() {
         }
 
         self.data()[data.markerId()].marker().setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-        self.data()[data.markerId()].active(true)
+        self.data()[data.markerId()].active(true);
     };
 
 } // End of AppViewModel
