@@ -69,7 +69,7 @@ Content Area
     margin: 0 auto;
 }
 
-.selectContainer select {
+.selectContainer input {
     color: #312F2F;
 }
 

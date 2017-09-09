@@ -43,7 +43,7 @@ function AppViewModel() {
 
     var self = this;
 
-    function location(name, category, lat, lng, adress, website, markerId) {
+    function location(name, category, lat, lng, adress, website, markerId, marker) {
         this.name = ko.observable(name);
         this.category = ko.observable(category);
         this.lat = ko.observable(lat);
@@ -51,6 +51,7 @@ function AppViewModel() {
         this.adress = ko.observable(adress);
         this.website = ko.observable(website);
         this.markerId = ko.observable(markerId);
+        this.marker = ko.observable(marker);
       }
 
     self.availableCategories = ko.observableArray(['Museum', 'Food', 'Sights', 'Outdoors']);
@@ -59,30 +60,28 @@ function AppViewModel() {
 
     // push first data to observableArray AFTER google map has been initiated
     setTimeout(function(){
-        self.data.push(new location( 'Van Gogh Museum', 'Museum', 52.358415900, 4.881075600, 'Museumplein 6, 1071 DJ Amsterdam', foursquareData[0], 0 ));
-        self.data.push(new location( 'Cafe De Jaren', 'Food', 52.368079, 4.895396, 'Nieuwe Doelenstraat 20, 1012 CP Amsterdam', foursquareData[1], 1 ));
-        self.data.push(new location( 'Rijksmuseum', 'Museum', 52.360034188361645, 4.885139465332031, 'Museumstraat 1, 1071 XX Amsterdam', foursquareData[2], 2 ));
-        self.data.push(new location( 'Royal Palace Amsterdam', 'Sights', 52.373189, 4.891319, 'Dam, 1012 HG Amsterdam', foursquareData[3], 3 ));
-        self.data.push(new location( 'Westerpark', 'Outdoors', 52.386182, 4.877758, 'Haarlemmerweg 4, 1014 Amsterdam', foursquareData[4], 4));
+        self.data.push(new location( 'Van Gogh Museum', 'Museum', 52.358415900, 4.881075600, 'Museumplein 6, 1071 DJ Amsterdam', foursquareData[0], 0, markerNum[0] ));
+        self.data.push(new location( 'Cafe De Jaren', 'Food', 52.368079, 4.895396, 'Nieuwe Doelenstraat 20, 1012 CP Amsterdam', foursquareData[1], 1, markerNum[1] ));
+        self.data.push(new location( 'Rijksmuseum', 'Museum', 52.360034188361645, 4.885139465332031, 'Museumstraat 1, 1071 XX Amsterdam', foursquareData[2], 2, markerNum[2] ));
+        self.data.push(new location( 'Royal Palace Amsterdam', 'Sights', 52.373189, 4.891319, 'Dam, 1012 HG Amsterdam', foursquareData[3], 3, markerNum[3] ));
+        self.data.push(new location( 'Westerpark', 'Outdoors', 52.386182, 4.877758, 'Haarlemmerweg 4, 1014 Amsterdam', foursquareData[4], 4, markerNum[4]));
     }, 2000);
 
-    // eventlistener - sorts visible data based on filter
-    self.selectedCategory.subscribe(function(value) {
-        var list = $('.list ul li');
-        list.each(function(index, item){
-            $(item).show();
-            var category = $(item).children('.itemData').children('.category').html();
-            var markerId = $(item).children('.itemData').children('.markerId').html();
-            markerNum[markerId].setVisible(true);
+    self.search = ko.observable('');
 
-            if(value === undefined){
-                $(item).show();
-                markerNum[markerId].setVisible(true);
+    self.filter = ko.computed(function(){
+        var update = self.search();
+        for(var j = 0; j < self.data().length; j++) {
+            self.data()[j].marker().setVisible(false);
+        }
+        return self.data().filter(function(i) {
+            //i.marker().setVisible(true);
+            if(i.name().toLowerCase().indexOf(update.toLowerCase()) >= 0){
+                i.marker().setVisible(true);
+            } else {
+                i.marker().setVisible(false);
             }
-            else if(category != value){
-                $(item).hide();
-                markerNum[markerId].setVisible(false);
-            }
+            return i.name().toLowerCase().indexOf(update.toLowerCase()) >= 0;
         });
     });
 
@@ -114,7 +113,8 @@ function initMap() {
     for (var i = 0; i < markers.length; i++) {
         markerNum[i] = new google.maps.Marker({
         position: new google.maps.LatLng(markers[i].lat, markers[i].lng),
-        map: map
+        map: map,
+        title: markers[i].name
         });
 
         google.maps.event.addListener(markerNum[i], 'click', (function(marker, i) {
@@ -141,6 +141,7 @@ function initMap() {
             };
 
         })(markerNum[i], i));
+
     }
 } // End of initMap
 
